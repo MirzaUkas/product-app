@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -32,15 +33,13 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'user' => 'required',
             'dob' => 'required',
             'gender' => 'required',
             'address' => 'required',
-            'password' => 'required',
+            'password' =>  'required',
             'id_card_photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        $input = $request->all();
     
         if ($image = $request->file('id_card_photo')) {
             $destinationPath = 'images/';
@@ -49,10 +48,20 @@ class UserController extends Controller
             $input['id_card_photo'] = "$profileImage";
         }
         
-        User::create($input);
+        User::create([
+            'name' => $request->name,
+            'user' => $request->user,
+            'dob' => $request->dob,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'password' =>  Hash::make($request['password']),
+            'id_card_photo' => $request->id_card_photo,
+        ]);
 
         if(Auth::guard('admin')->check()){
             return redirect()->action([AdminController::class, 'index'])->with('success','User Has Been updated successfully');
+        }else if(Auth::guard('staff')->check()){
+            return redirect()->action([StaffController::class, 'index'])->with('success','User Has Been updated successfully');
         }else{
             return redirect()->route('users.index')->with('success','User Has Been updated successfully');
         }
@@ -81,7 +90,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'user' => 'required',
             'dob' => 'required',
             'gender' => 'required',
             'address' => 'required',
@@ -89,7 +98,15 @@ class UserController extends Controller
             'id_card_photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $input = $request->all();
+        $input = ([
+            'name' => $request->name,
+            'user' => $request->user,
+            'dob' => $request->dob,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'password' =>  Hash::make($request['password']),
+            'id_card_photo' => $request->id_card_photo,
+        ]);
     
         if ($image = $request->file('id_card_photo')) {
             $destinationPath = 'images/';
@@ -104,6 +121,8 @@ class UserController extends Controller
 
         if(Auth::guard('admin')->check()){
             return redirect()->action([AdminController::class, 'index'])->with('success','User Has Been updated successfully');
+        }else if(Auth::guard('staff')->check()){
+            return redirect()->action([StaffController::class, 'index'])->with('success','User Has Been updated successfully');
         }else{
             return redirect()->route('users.index')->with('success','User Has Been updated successfully');
         }
@@ -117,6 +136,8 @@ class UserController extends Controller
         $user->delete();
         if(Auth::guard('admin')->check()){
             return redirect()->action([AdminController::class, 'index'])->with('success','User Has Been updated successfully');
+        }else if(Auth::guard('staff')->check()){
+            return redirect()->action([StaffController::class, 'index'])->with('success','User Has Been updated successfully');
         }else{
             return redirect()->route('user.index')->with('success','User Has Been updated successfully');
         }

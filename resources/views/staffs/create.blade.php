@@ -5,10 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Add User') }}</div>
+                    <div class="card-header">{{ __('Add Staff') }}</div>
 
                     <div class="card-body">
-                        <a class="btn btn-primary w-25" href="{{ route('users.index') }}"
+                        <a class="btn btn-primary w-25" href="{{ route('staffs.index') }}"
                             enctype="multipart/form-data">
                             Back</a>
                         @if (session('status'))
@@ -16,14 +16,14 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('staffs.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Name:</strong>
                                         <input type="text" name="name" class="form-control"
-                                            placeholder="User name">
+                                            placeholder="Staff Name">
                                         @error('name')
                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
@@ -48,36 +48,9 @@
                             </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>DOB:</strong>
-                                        <input type="text" name="dob" class="form-control" placeholder="Date of Birth">
-                                        @error('dob')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
                                         <strong>Gender:</strong>
                                         <input type="text" name="gender" class="form-control" placeholder="Gender">
                                         @error('gender')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Address:</strong>
-                                        <input type="text" name="address" class="form-control" placeholder="Address">
-                                        @error('address')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>ID Card Photo:</strong>
-                                        <input type="file" name="id_card_photo" class="form-control" placeholder="ID Card">
-                                        @error('id_card_photo')
                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>

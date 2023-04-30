@@ -41,10 +41,10 @@
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>User:</strong>
-                                        <input type="text" name="user" class="form-control" placeholder="User"
+                                        <strong>Email:</strong>
+                                        <input type="text" name="email" class="form-control" placeholder="Email"
                                             value="{{ $user->email }}">
-                                        @error('user')
+                                        @error('email')
                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
