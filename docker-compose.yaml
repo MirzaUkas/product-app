@@ -1,0 +1,27 @@
+version: '3.8'
+services: 
+    product-app:
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 8000:8000
+            - 5173:5173
+        environment:
+            DB_HOST: db
+            DB_PORT: 3306
+            DB_USERNAME: admin
+            DB_DATABASE: product-app
+            DB_PASSWORD: admin
+        depends_on: 
+            db:
+                condition: service_started
+    db:
+        image: mysql:8.0
+        environment: 
+            MYSQL_DATABASE: product-app
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: admin
+            MYSQL_ROOT_PASSWORD: root123
+        ports:
+            - 3306:3306

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Staff;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -15,7 +16,8 @@ class AdminController extends Controller
     {
         $products = Product::all();
         $users = User::all();
-        return view('admin', ['products' => $products,'users' => $users]);
+        $staffs = Staff::all();
+        return view('admin', ['products' => $products,'users' => $users,'staffs' => $staffs]);
     }
 
 }
